@@ -27,7 +27,7 @@ def task_1():
     for index in range(len(bad_indicies)):
         unique_data.pop(index)
     similar_data = sorted(similar_data, key=lambda d: d['id'])
-    return [unique_data, similar_data]
+    return {'unique_data': unique_data, 'similar_data': similar_data}
 
 
 # имеется текстовый файл file.csv, в котром разделитель полей с данными: | (верт. черта)
@@ -43,4 +43,5 @@ lastname|name|patronymic|date_of_birth|id
 # Задание
 # 1. Реализовать сбор уникальных записей
 # 2. Случается, что под одиннаковым id присутствуют разные данные - собрать отдельно такие записи
-task_1()
+result = task_1()
+pass
