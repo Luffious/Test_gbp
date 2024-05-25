@@ -56,6 +56,9 @@ def task_2():
      3. посчитать среднее значение
      4. собрать все множества в один кортеж
      *написать решения в одну строку
+
+    Returns:
+        dict[str, Any]: Словарь с общим количеством чисел, общей суммой чисел, средним значением и кортежом
     '''
     m = [{11, 3, 5}, {2, 17, 87, 32}, {4, 44}, {24, 11, 9, 7, 8}]
     num_amount = len([num for sets in m for num in sets])
@@ -65,5 +68,25 @@ def task_2():
     return {'num_amount': num_amount, 'total_sum': total_sum, 'average_value': average_value, 'm_to_tuple': m_to_tuple}
 
 
+def task_3():
+    '''
+    имеется список списков
+    a = [[1,2,3], [4,5,6]]
+
+    Задание:
+    сделать список словарей
+    b = [{'k1': 1, 'k2': 2, 'k3': 3}, {'k1': 4, 'k2': 5, 'k3': 6}]
+
+    *написать решение в одну строку
+
+    Returns:
+        list[dict[str, int]]]: Список словарей
+    '''
+    a = [[1,2,3], [4,5,6]]
+    b = [dict([(f'k{x + 1}', sublist[x]) for x in range(len(sublist))]) for sublist in a]
+    return b
+
+
 task_1_result = task_1()
 task_2_result = task_2()
+task_3_result = task_3()
