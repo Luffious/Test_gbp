@@ -126,4 +126,3 @@ for i in range(-20, 1):
         current_mtime = os.stat(path).st_mtime
         os.utime(path, (current_mtime, new_mtime))
 task_4_result = task_4(f'Test Folder', 10)
-pass
