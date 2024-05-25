@@ -58,6 +58,11 @@ def task_2():
      *написать решения в одну строку
     '''
     m = [{11, 3, 5}, {2, 17, 87, 32}, {4, 44}, {24, 11, 9, 7, 8}]
+    num_amount = len([num for sets in m for num in sets])
+    total_sum = sum([num for sets in m for num in sets])
+    average_value = total_sum / num_amount
+    m_to_tuple = tuple([num for sets in m for num in sets])
+    return {'num_amount': num_amount, 'total_sum': total_sum, 'average_value': average_value, 'm_to_tuple': m_to_tuple}
 
 
 task_1_result = task_1()
