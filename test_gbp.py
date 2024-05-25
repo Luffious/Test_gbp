@@ -1,4 +1,7 @@
 import csv
+import os
+import time
+from datetime import datetime, timedelta
 
 def task_1():
     '''
@@ -87,6 +90,40 @@ def task_3():
     return b
 
 
+def task_4(path_to_dir: str, N: int):
+    '''
+    Имеется папка с файлами
+    Реализовать удаление файлов старше N дней
+
+    Args:
+        path_to_dir (str): Путь к директории с файлами
+        N (int): Количество дней для актуальности файла
+    '''
+    files = [entry.name for entry in os.scandir(path_to_dir) if entry.is_file()]
+    days_to_seconds = N * 24 * 60 * 60
+    date_of_modification = 0
+    for file_path in files:
+        full_path = os.path.join(path_to_dir, file_path)
+        with open(full_path, 'r'):
+            date_of_modification = os.stat(full_path).st_mtime
+        if time.time() - days_to_seconds > date_of_modification:
+            os.remove(full_path)
+    return
+
+
 task_1_result = task_1()
 task_2_result = task_2()
 task_3_result = task_3()
+
+# Данный кусок кода требуется для проверки реализации задания 4
+# Здесь создаётся 21 файл с датами изменения в диапазоне от 20 дней до текущей даты до текущей даты
+current_date = datetime.now()
+for i in range(-20, 1):
+    path = f'Test Folder/File {i + 21}'
+    with open(path, 'w') as f:
+        file_date = current_date + timedelta(days=i)
+        new_mtime = time.mktime(file_date.timetuple())
+        current_mtime = os.stat(path).st_mtime
+        os.utime(path, (current_mtime, new_mtime))
+task_4_result = task_4(f'Test Folder', 10)
+pass
