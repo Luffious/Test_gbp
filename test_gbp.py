@@ -111,6 +111,52 @@ def task_4(path_to_dir: str, N: int):
     return
 
 
+def task_5(path_to_file: str):
+    '''
+    В наличии текстовый файл с набором русских слов(имена существительные, им.падеж)
+    Одна строка файла содержит одно слово.
+
+    Задание:
+    Написать программу которая выводит список слов, 
+    каждый элемент списка которого - это новое слово,
+    которое состоит из двух сцепленных в одно, которые имеются в текстовом файле.
+    Порядок вывода слов НЕ имеет значения
+
+    Args:
+        path_to_file (str): Путь к файлу с словами
+    '''
+    with open(path_to_file, 'r', encoding='utf-8') as f:
+        words = []
+        index = 1
+        print('Выбери слово из списка:')
+        for line in f:
+            word = line.replace('\n', '')
+            words.append(word.lower())
+            print(f'{index}) {word}')
+            index += 1
+        word_index = 0
+        while word_index <= 0 or word_index >= index:
+            try:
+                word_index = int(input('Введи номер слова: '))
+                if word_index <= 0 or word_index >= index:
+                    print('Нет такого номера')
+            except ValueError:
+                print('Нет такого номера')
+        chosen_word = words[word_index - 1]
+        combinded_words = []
+        for word in words:
+            appended = False
+            for index in reversed(range(1, len(word))):
+                pos = len(word[:index])
+                if word[:index] in chosen_word[-pos:] and not appended:
+                    combinded_words.append(f'{chosen_word}{word[pos:]}')
+                    appended = True
+        print('Список объединённых слов:')
+        for combined_word in combinded_words:
+            print(combined_word)
+    return
+
+
 task_1_result = task_1()
 task_2_result = task_2()
 task_3_result = task_3()
@@ -126,3 +172,4 @@ for i in range(-20, 1):
         current_mtime = os.stat(path).st_mtime
         os.utime(path, (current_mtime, new_mtime))
 task_4_result = task_4(f'Test Folder', 10)
+task_5_result = task_5(f'task_5.txt')
